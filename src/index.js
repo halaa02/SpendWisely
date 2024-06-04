@@ -13,7 +13,7 @@ import Test4 from "./pages/test4";
 import Test5 from "./pages/test5";
 import Test6 from "./pages/test6";
 import Test7 from "./pages/test7";
-import Test8 from "./pages/test8";
+import Debt from "./pages/debt";
 import Report from "./pages/report";
 
 
@@ -35,7 +35,7 @@ function App() {
         <Route path="test5" element={<Test5 />} />
         <Route path="test6" element={<Test6 />} />
         <Route path="test7" element={<Test7 />} />
-        <Route path="test8" element={<Test8 />} />
+        <Route path="debt" element={<Debt />} />
         <Route path="report" element={<Report />} />
       </Routes>
     </BrowserRouter>

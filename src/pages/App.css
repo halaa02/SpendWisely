@@ -763,13 +763,13 @@ padding-bottom: 5vh;
 
 .d1
 {
-  display: flex;
-  justify-content: center;
+  display: inline-block;
   color: white;
   height: 250px;
-  width: 250px;
-        background-color: #054c9cb6;
-        border-radius: 15px;
+  width: 18rem;
+  margin: 1rem;
+  background-color: #054c9cb6;
+  border-radius: 15px;
   font-family: 'Pacifico', cursive;
   font-size: 40px;
   text-align:center;
@@ -1155,6 +1155,76 @@ padding-bottom: 5vh;
   text-align:center;
 
 
+}
+.bdebt{
+  background:aliceblue;
+  height:100vh;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center; 
+  align-items:center;
+}
+.tt 
+{
+height: 60px; 
+  width: 100px;
+  margin-left: 30%;
+  font-family: cursive;
+  margin-top: 3vh;
+  font-size: 18px;
+}
+
+.t1,.t2 ,.t3
+{
+font-family: cursive;
+font-size: 24px;
+margin-bottom: 2vh;
+}
+
+.t11,.t22,.t33
+{
+height: 35px;
+  width: 350px;
+  font-size: medium;
+}
+
+.t11
+{
+display: flex;
+margin-right: 3vh;
+}
+
+.t22
+{
+display: flex;
+margin-right: 3vh;
+
+}
+.t33
+{
+display: flex;
+margin-right: 3vh;
+
+}
+
+.debt-form {
+margin-bottom: 20px; 
+}
+
+.debt-table {
+width: 50%; 
+border-collapse: collapse; 
+margin-top: 20px; 
+border: 2px solid black;
+border-radius: 10px; 
+overflow: hidden;
+}
+
+.debt-table th, .debt-table td {
+border: 2px solid black; 
+padding: 8px; 
+text-align: left; 
 }
 
 .B2

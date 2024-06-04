@@ -78,6 +78,21 @@ function MyForm() {
 
           })
       setData(dataLocal)
+      var totalLocal = 0;
+      var totalIncomeLocal = 0;
+      var totalExpenseLocal = 0;
+      dataLocal.forEach(d=>{
+        if (d['type'] == "Income"){
+          totalLocal = totalLocal + parseFloat(d['amount'])
+          totalIncomeLocal = totalIncomeLocal + parseFloat(d['amount'])
+        } else {
+          totalLocal = totalLocal - parseFloat(d['amount'])
+          totalExpenseLocal = totalExpenseLocal - parseFloat(d['amount'])
+        }
+      });
+      setTotal(totalLocal)
+      setTotalIncome(totalIncomeLocal)
+      setTotalExpense(totalExpenseLocal)
       })
       .catch(error => {
         window.alert('something went wrong')
@@ -184,7 +199,7 @@ function MyForm() {
               alignItems: "center",padding: 1}}>
           <div
             style={{
-              width:"30%",
+              width:"20%",
               padding: 2,
               borderRadius:'10px' , 
               display: "flex",
@@ -200,7 +215,7 @@ function MyForm() {
           </div>
           <div
             style={{
-              width:"30%",
+              width:"20%",
               padding: 2,
               borderRadius:'10px' , 
               display: "flex",
@@ -216,7 +231,7 @@ function MyForm() {
           </div>
           <div
             style={{
-              width:"30%",
+              width:"20%",
               padding: 2,
               borderRadius:'10px' , 
               display: "flex",
@@ -230,6 +245,27 @@ function MyForm() {
               <p style={{ fontSize: "24px", color: "red", fontWeight:"600" }}>{totalExpense} JOD</p>
             </div>
           </div>
+          <button
+            onClick={()=>{
+              navigate("/debt")
+            }}
+            style={{
+              width:"20%",
+              marginTop:0,
+              border:"unset",
+              padding: 2,
+              borderRadius:'10px' , 
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
+            }}
+          >
+            <div>
+              <p style={{fontSize: "20px", fontWeight:"600"}}>Debt</p>
+              <p style={{ fontSize: "24px", fontWeight:"600" }}>Enter to Dept</p>
+            </div>
+          </button>
         </div>
         <h1>History</h1>
         <div style={{display:"flex", width:"100%"}}>

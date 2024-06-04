@@ -1,14 +1,56 @@
-import react,{useState} from "react";
+import react,{useState, useEffect} from "react";
 import './App.css';
 import { useNavigate } from "react-router-dom";
 
 function MyForm() {
   const navigate = useNavigate();
-    const[name,setName]=useState("")
-    const[age,setAge]=useState("")
-    const[password,setPassword]=useState("")
+    const[incomeData,setIncomeData]=useState({})
+    const[expenseData,setExpenseData]=useState({})
 
-
+    const getData = () =>{
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+  
+      var raw = JSON.stringify({
+        "user_id": window.localStorage.getItem("id")
+      });
+  
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:3007/get_financial_entry", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result.data);
+          var incomeDataLocal = {...incomeData}
+          var expenseDataLocal = {...expenseData}
+            result.data.forEach(d=>{
+              if (d['type'] == "Income"){
+                if (!Object.keys(incomeDataLocal).includes(d['title'])){
+                  incomeDataLocal[d['title']] = 0;
+                }
+                incomeDataLocal[d['title']] = incomeDataLocal[d['title']] + parseFloat(d['amount']);
+              }else{
+                if (!Object.keys(expenseDataLocal).includes(d['title'])){
+                  expenseDataLocal[d['title']] = 0;
+                }
+                expenseDataLocal[d['title']] = expenseDataLocal[d['title']] + parseFloat(d['amount']);
+              }
+            })
+          setIncomeData(incomeDataLocal)
+          setExpenseData(expenseDataLocal)
+        })
+        .catch(error => {
+          window.alert('something went wrong')
+        });
+    }
+    useEffect(()=>{
+      getData();
+    },[])
   return (
 
     <div className="x">
@@ -30,51 +72,24 @@ function MyForm() {
     <div className="image-container">
 <img></img></div> 
 
+            <div className="d"><h2>Income</h2></div> 
+            <div style={{width:"100%"}}>
+              {Object.keys(incomeData).map(e=>(
+                <div className="d1 col-4 m-2">
+                  <h3>{e}</h3>
+                  <h3>{incomeData[e]}</h3>
+                </div>
+              ))}
+            </div>
             <div className="d"><h2>Expenses</h2></div> 
-            <div className="d01">
-            <button className="d1" onClick={()=>{navigate("/test5")}}><h3>Bills</h3></button>
-            <button className="d2" onClick={()=>{navigate("/test7")}}><h3>Education</h3></button>
-            <button className="d3" onClick={()=>{navigate("/test6")}}><h3>Food and Beverage</h3></button>
+            <div style={{width:"100%"}}>
+              {Object.keys(expenseData).map(e=>(
+                <div className="d1 col-4 m-2">
+                  <h3>{e}</h3>
+                  <h3>{expenseData[e]}</h3>
+                </div>
+              ))}
             </div>
-            <div className="d02">
-
-            <button className="d5" onClick={()=>{navigate("/test4")}}><h3>Transportation</h3></button>
-            <button className="d6" onClick={()=>{navigate("/test2")}}><h3>Health</h3></button>
-            <button className="d7" onClick={()=>{navigate("/test")}}><h3>Social</h3></button>
-
-            </div>
-            <div className="d03">
-
-            <button className="d10" onClick={()=>{navigate("/test9")}}><h3>Entertainment</h3></button>
-            <button className="d11" onClick={()=>{navigate("/test10")}}><h3>Maintenance and repairs</h3></button>
-            <button className="d12" onClick={()=>{navigate("/test8")}}><h3>Debt and Loan</h3></button>
-
-
-            </div>
-            <div className="d04">
-            <button className="d13" onClick={()=>{navigate("/test")}}><h3>other</h3></button>
-
-            </div>
-
-
-
-
-
-
-
-<div className="BB">
-<div className="B1">
-<h2>Basic Expenses (50%)</h2>
-</div>
-
-<div className="B2">
-<h2>Supplementary Expenses (30%)</h2>
-</div>
-
-<div className="B3">
-<h2>Savings & Emergencies (20%)</h2>
-</div>
-</div>
 </div>
 
 
